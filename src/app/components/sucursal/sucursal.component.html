@@ -86,39 +86,16 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="grid-item">
-              <mat-form-field appearance="outline" class="date-width">
-                <mat-label>Fecha Creación</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="fechaPicker"
-                  formControlName="fechaCreacion"
-                  required
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="fechaPicker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #fechaPicker></mat-datepicker>
-                <mat-error
-                  *ngIf="
-                    sucursalForm.controls['fechaCreacion'].invalid &&
-                    sucursalForm.controls['fechaCreacion'].touched
-                  "
-                >
-                  Fecha de creación inválida
-                </mat-error>
-              </mat-form-field>
-            </div>
+        
             <div class="grid-item">
               <mat-form-field appearance="outline">
                 <mat-label>Moneda</mat-label>
                 <mat-select formControlName="moneda" required>
                   <mat-option
                     *ngFor="let option of monedaOptions"
-                    [value]="option"
+                    [value]="option.id"
                   >
-                    {{ option }}
+                    {{ option.currencyName }}
                   </mat-option>
                 </mat-select>
                 <mat-error
@@ -152,44 +129,44 @@
           <!-- Columnas de la tabla -->
           <ng-container matColumnDef="codigo">
             <th mat-header-cell *matHeaderCellDef>Código</th>
-            <td mat-cell *matCellDef="let sucursal">{{ sucursal.codigo }}</td>
+            <td mat-cell *matCellDef="let sucursal">{{ sucursal.code }}</td>
           </ng-container>
 
           <ng-container matColumnDef="descripcion">
             <th mat-header-cell *matHeaderCellDef>Descripción</th>
             <td mat-cell *matCellDef="let sucursal">
-              {{ sucursal.descripcion }}
+              {{ sucursal.description }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="direccion">
             <th mat-header-cell *matHeaderCellDef>Dirección</th>
             <td mat-cell *matCellDef="let sucursal">
-              {{ sucursal.direccion }}
+              {{ sucursal.address }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="identificacion">
             <th mat-header-cell *matHeaderCellDef>Identificación</th>
             <td mat-cell *matCellDef="let sucursal">
-              {{ sucursal.identificacion }}
+              {{ sucursal.identification }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="moneda">
             <th mat-header-cell *matHeaderCellDef>Moneda</th>
             <td mat-cell *matCellDef="let sucursal">
-              {{ sucursal.moneda }}
+              {{ sucursal.currencyType }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let sucursal">
-              <button mat-icon-button color="primary" aria-label="Editar">
+            <td mat-cell *matCellDef="let sucursal" >
+              <button mat-icon-button color="primary" aria-label="Editar" >
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" aria-label="Eliminar">
+              <button mat-icon-button color="warn" aria-label="Eliminar" (click)="borrarSucursal(sucursal)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
